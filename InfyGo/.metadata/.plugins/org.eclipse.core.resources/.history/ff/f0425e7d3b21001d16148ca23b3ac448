@@ -1,0 +1,19 @@
+package com.infy.dto;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Set;
+
+public class TicketDTO {
+	
+	private Integer pnr;
+	private LocalDate bookingDate;
+	private LocalDate departureDate;
+	private LocalTime departureTime;
+	private FlightDTO flight;
+	private Integer noOfSeats;
+	private Double totalFare;
+	private UserDTO user;
+	private Set<PassengerDTO> passengers;
+
+}

@@ -1,0 +1,35 @@
+package com.infy.util;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
+
+
+@Aspect
+@Component
+//@PropertySource(value = "classpath:ValidationMessages.properties")
+public class LoggingAspect {
+	
+	private static final Logger logger = LoggerFactory.getLogger(LoggingAspect.class);
+
+	@Autowired
+	private Environment environment;
+
+	@AfterThrowing(pointcut = "execution(* com.infy.service.*Impl.*(..))", throwing = "exception")
+	public void serviceExceptionLoggingAdvice(JoinPoint joinPoint, Exception exception) {
+		logger.error("{} occured in {}", environment.getProperty(exception.getMessage()), joinPoint.getSignature(),
+				exception);
+	}
+	
+	@AfterThrowing(pointcut = "execution(* com.infy.controller.*Controller.*(..))", throwing = "exception")
+	public void controllerExceptionLoggingAdvice(JoinPoint joinPoint, Exception exception) {
+		logger.error("{} occured in {}", environment.getProperty(exception.getMessage()), joinPoint.getSignature(),
+				exception);
+	}
+}

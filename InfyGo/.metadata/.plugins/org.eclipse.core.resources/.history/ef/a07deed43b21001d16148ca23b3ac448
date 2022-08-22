@@ -1,0 +1,14 @@
+package com.infy.dto;
+
+import javax.validation.constraints.Pattern;
+
+public class PassengerDTO {
+	
+	private Integer passengerId;
+	private Integer passengerAge;
+	@Pattern(regexp = "^[MFO]$", message = "{passenger.gender.invalid}")
+	private String passengerGender;
+	private String passengerName;
+	private TicketDTO ticket;
+
+}

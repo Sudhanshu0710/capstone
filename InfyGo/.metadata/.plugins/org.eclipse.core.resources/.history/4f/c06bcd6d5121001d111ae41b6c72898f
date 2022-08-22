@@ -1,0 +1,266 @@
+{
+"info": {
+"_postman_id": "0f776856-d29b-450c-9607-71a7fd193383",
+"name": "spring rest capstone infygo",
+"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+},
+"item": [
+{
+"name": "login user",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"userId\":\"1234\",\r\n    \"city\":\"Chandigarh\",\r\n    \"email\":\"john.doe@infosys.com\",\r\n    \"name\":\"John Doe\",\r\n    \"password\":\"johnDoe@123\",\r\n    \"phone\":\"9087654321\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/users/login",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"users",
+"login"
+]
+}
+},
+"response": []
+},
+{
+"name": "register user",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"userId\":\"1234\",\r\n    \"city\":\"Chandigarh\",\r\n    \"email\":\"john.doe@infosys.com\",\r\n    \"name\":\"John Doe\",\r\n    \"password\":\"johnDoe@123\",\r\n    \"phone\":\"9087654321\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/users/register",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"users",
+"register"
+]
+}
+},
+"response": []
+},
+{
+"name": "Add flights",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "[\r\n  {\r\n    \"flightId\": \"FSJ1001\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"12:12\",\r\n    \"departureTime\": \"12:40\",\r\n    \"destination\": \"Mysore\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Pune\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1003\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"09:32\",\r\n    \"departureTime\": \"10:00\",\r\n    \"destination\": \"Chandigarh\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Mysore\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1002\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"17:46\",\r\n    \"departureTime\": \"18:10\",\r\n    \"destination\": \"Bangalore\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Dehli\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1004\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"12:12\",\r\n    \"departureTime\": \"12:40\",\r\n    \"destination\": \"Mumbai\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Pune\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1005\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"09:32\",\r\n    \"departureTime\": \"10:00\",\r\n    \"destination\": \"Chandigarh\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Lakhnow\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1006\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"17:46\",\r\n    \"departureTime\": \"18:10\",\r\n    \"destination\": \"Chennai\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Dehli\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1007\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"12:12\",\r\n    \"departureTime\": \"12:40\",\r\n    \"destination\": \"Mysore\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Pune\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1008\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"09:32\",\r\n    \"departureTime\": \"10:00\",\r\n    \"destination\": \"Chandigarh\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Mysore\"\r\n  },\r\n  {\r\n    \"flightId\": \"FSJ1009\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"17:46\",\r\n    \"departureTime\": \"18:10\",\r\n    \"destination\": \"Bangalore\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Dehli\"\r\n  },\r\n  {\r\n    \"flightId\": \"FIG1002\",\r\n    \"airlines\": \"Indigo\",\r\n    \"arrivalTime\": \"12:12\",\r\n    \"departureTime\": \"12:40\",\r\n    \"destination\": \"Mumbai\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Pune\"\r\n  },\r\n  {\r\n    \"flightId\": \"FIG1001\",\r\n    \"airlines\": \"Indigo\",\r\n    \"arrivalTime\": \"09:32\",\r\n    \"departureTime\": \"10:00\",\r\n    \"destination\": \"Chandigarh\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Lakhnow\"\r\n  },\r\n  {\r\n    \"flightId\": \"FIA1001\",\r\n    \"airlines\": \"Indian Airlines\",\r\n    \"arrivalTime\": \"17:46\",\r\n    \"departureTime\": \"18:10\",\r\n    \"destination\": \"Chennai\",\r\n    \"fare\": 9000,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Dehli\"\r\n  }\r\n]",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/flights/addAll",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"flights",
+"addAll"
+]
+}
+},
+"response": []
+},
+{
+"name": "Add flight",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"flightId\": \"FSJ1001\",\r\n    \"airlines\": \"Spice Jet\",\r\n    \"arrivalTime\": \"23:12\",\r\n    \"departureTime\": \"23:40\",\r\n    \"destination\": \"Mysore\",\r\n    \"fare\": 9000.00,\r\n    \"flightAvailableDate\": \"23-01-2023\",\r\n    \"seatCount\": \"35\",\r\n    \"source\": \"Dehli\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/flights/add",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"flights",
+"add"
+]
+}
+},
+"response": []
+},
+{
+"name": "search from source",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "http://localhost:8085/infygo/flights/sources?source={{source}}",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"flights",
+"sources"
+],
+"query": [
+{
+"key": "source",
+"value": "{{source}}"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "search from destination",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "http://localhost:8085/infygo/flights/destinations?destination={{destination}}",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"flights",
+"destinations"
+],
+"query": [
+{
+"key": "destination",
+"value": "{{destination}}"
+}
+]
+}
+},
+"response": []
+},
+{
+"name": "source destination and journeydate",
+"request": {
+"method": "GET",
+"header": [],
+"url": {
+"raw": "http://localhost:8085/infygo/flights/source={{source}}, Lakhnow/destination={{destination}},Mumbai/journeydate=23-01-2023",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"flights",
+"source={{source}}, Lakhnow",
+"destination={{destination}},Mumbai",
+"journeydate=23-01-2023"
+]
+}
+},
+"response": []
+},
+{
+"name": "book ticket",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "[\r\n    {\r\n        \"passengerAge\": 21,\r\n        \"passengerGender\":\"M\",\r\n        \"passengerName\":\"John Doe\"\r\n    },\r\n    {\r\n        \"passengerAge\": 22,\r\n        \"passengerGender\":\"F\",\r\n        \"passengerName\":\"Keath Block\"\r\n    },\r\n    {\r\n        \"passengerAge\": 23,\r\n        \"passengerGender\":\"M\",\r\n        \"passengerName\":\"John Smith\"\r\n    },\r\n    {\r\n        \"passengerAge\": 25,\r\n        \"passengerGender\":\"F\",\r\n        \"passengerName\":\"\"\r\n    }\r\n]",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/book/FlightId=FSJ1001/UserId=1234",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"book",
+"FlightId=FSJ1001",
+"UserId=1234"
+]
+}
+},
+"response": []
+},
+{
+"name": "make payment",
+"request": {
+"method": "POST",
+"header": [],
+"body": {
+"mode": "raw",
+"raw": "{\r\n    \"cardNumber\":\"1234432156788795\",\r\n    \"apin\":\"123\",\r\n    \"cardHolderName\":\"John Doe\",\r\n    \"cvv\":\"123\",\r\n    \"expiryMonth\":\"Dec\",\r\n    \"expiryYear\":\"2023\",\r\n    \"totalBill\":\"36000.0\"\r\n}",
+"options": {
+"raw": {
+"language": "json"
+}
+}
+},
+"url": {
+"raw": "http://localhost:8085/infygo/payment",
+"protocol": "http",
+"host": [
+"localhost"
+],
+"port": "8085",
+"path": [
+"infygo",
+"payment"
+]
+}
+},
+"response": []
+}
+]
+}

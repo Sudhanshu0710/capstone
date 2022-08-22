@@ -1,0 +1,38 @@
+package com.infy.services;
+
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.infy.repository.CreditcardRepository;
+import com.infy.repository.FlightRepository;
+import com.infy.repository.PassengerRepository;
+import com.infy.repository.TicketRepository;
+import com.infy.repository.UserRepository;
+
+@Service
+@Transactional
+public interface BookingServiceImplementation implements BookingService{
+	
+	@Autowired
+	private TicketRepository ticketRepository;
+
+	@Autowired
+	private CreditcardRepository creditcardRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private FlightRepository flightRepository;
+	
+	@Autowired
+	private PassengerRepository passengerRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	
+}

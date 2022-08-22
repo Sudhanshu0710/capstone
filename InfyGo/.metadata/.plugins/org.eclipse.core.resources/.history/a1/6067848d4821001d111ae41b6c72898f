@@ -1,0 +1,92 @@
+package com.infy.services;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.infy.dto.CreditcardDTO;
+import com.infy.dto.PassengerDTO;
+import com.infy.dto.TicketDTO;
+import com.infy.entity.Creditcard;
+import com.infy.entity.Flight;
+import com.infy.entity.Passenger;
+import com.infy.entity.Ticket;
+import com.infy.entity.User;
+import com.infy.exception.InfyGoException;
+import com.infy.repository.CreditcardRepository;
+import com.infy.repository.FlightRepository;
+import com.infy.repository.PassengerRepository;
+import com.infy.repository.TicketRepository;
+import com.infy.repository.UserRepository;
+
+@Service
+@Transactional
+public class BookingServiceImpl implements BookingService{
+	
+	@Autowired
+	private TicketRepository ticketRepository;
+
+	@Autowired
+	private CreditcardRepository creditcardRepository;
+
+	@Autowired
+	private UserRepository userRepository;
+
+	@Autowired
+	private FlightRepository flightRepository;
+	
+	@Autowired
+	private PassengerRepository passengerRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
+	@Override
+	public TicketDTO bookTicket(String flightId, String userId, List<PassengerDTO> passengerDTOs)
+			throws InfyGoException {
+		Optional<Flight> flightOptional = this.flightRepository.findById(flightId);
+		Optional<User> userOptional = this.userRepository.findById(userId);
+		Flight flight = flightOptional.orElseThrow(() -> new InfyGoException("flight.not.found"));
+		User user = userOptional.orElseThrow(() -> new InfyGoException("user.not.found"));
+		Integer seatCount = flight.getSeatCount();
+		Integer requiredSeats = passengerDTOs.size();
+if (seatCount < requiredSeats) throw new InfyGoException("seats.not.available");
+		List<Passenger> passengers = new ArrayList<>();
+		passengerDTOs.forEach(passengerdto -> {
+			Passenger passenger = this.passengerRepository
+					.saveAndFlush(this.modelMapper.map(passengerdto, Passenger.class));
+			passengers.add(passenger);
+		});
+seatCount -= requiredSeats;
+		Ticket ticket = new Ticket();
+		ticket.setBookingDate(LocalDate.now());
+		ticket.setDepartureDate(flight.getFlightAvailableDate());
+		ticket.setDepartureTime(flight.getDepartureTime());
+		ticket.setFlight(flight);
+ticket.setNoOfSeats(requiredSeats);
+		ticket.setTotalFare(requiredSeats * flight.getFare());
+		ticket.setUser(user);
+		ticket.setPassengers(passengers.stream().collect(Collectors.toSet()));
+		ticket = this.ticketRepository.saveAndFlush(ticket);
+		flight.setSeatCount(seatCount);
+		return this.modelMapper.map(ticket, TicketDTO.class);
+	}
+	
+	
+
+	@Override
+	public String makePayment(CreditcardDTO creditcardDTO) throws InfyGoException {
+		Optional<Creditcard> creditcardOptional = this.creditcardRepository.findById(creditcardDTO.getCardNumber());
+		Creditcard creditcard = creditcardOptional
+				.orElse(this.creditcardRepository.saveAndFlush(this.modelMapper.map(creditcardDTO, Creditcard.class)));
+		return "Bill transaction of " + creditcard.getTotalBill() + " was successful";
+	}
+	
+	
+}

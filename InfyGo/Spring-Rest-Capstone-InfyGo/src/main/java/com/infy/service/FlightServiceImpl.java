@@ -1,0 +1,88 @@
+package com.infy.service;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import javax.transaction.Transactional;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import com.infy.dto.FlightDTO;
+import com.infy.entity.Flight;
+import com.infy.exception.InfyGoException;
+import com.infy.repository.FlightRepository;
+
+@Service
+@Transactional
+public class FlightServiceImpl implements FlightService{
+	
+	@Autowired
+	private FlightRepository flightRepository;
+
+	@Autowired
+	private ModelMapper modelMapper;
+	
+	@Override
+	public Set<FlightDTO> fetchFlightForSource(String source) throws InfyGoException {
+		Set<Flight> flights = this.flightRepository.findBySource(source);
+		if (flights == null || flights.isEmpty()) throw new InfyGoException("flight.not.found");
+		return flights.stream().map(flight -> this.modelMapper.map(flight, FlightDTO.class))
+				.collect(Collectors.toSet());
+	}
+	
+	@Override
+	public Set<FlightDTO> fetchFlightForDestination(String destination) throws InfyGoException {
+		Set<Flight> flights = this.flightRepository.findByDestination(destination);
+		if (flights == null || flights.isEmpty()) throw new InfyGoException("flight.not.found");
+		return flights.stream().map(flight -> this.modelMapper.map(flight, FlightDTO.class))
+				.collect(Collectors.toSet());
+	}
+	
+	@Override
+	public Set<FlightDTO> fetchFlightForSourceDestinationAndJourneyDate(Map<String, List<String>> sources,
+			Map<String, List<String>> destinations, LocalDate journeyDate) throws InfyGoException {
+		Set<String> sourceSet = new HashSet<>();
+		for (Map.Entry<String, List<String>> entry : sources.entrySet()) {
+			sourceSet.addAll("source".equals(entry.getKey()) ? entry.getValue() : Set.of());
+		}
+		
+		Set<String> destinaltionSet = new HashSet<>();
+		for (Map.Entry<String, List<String>> entry : destinations.entrySet()) {
+			destinaltionSet.addAll("destination".equals(entry.getKey()) ? entry.getValue() : Set.of());
+		}
+		if (sourceSet.isEmpty()) throw new InfyGoException("sources.empty");
+		if (destinaltionSet.isEmpty()) throw new InfyGoException("destinations.empty");
+		//		if (journeyDateSet.isEmpty()) throw new InfyGoException("{journeydates.empty}");
+		Set<Flight> flights = this.flightRepository.findAllFlightsForGivenSourcesDestinationAndJourneyDate(sourceSet,
+				destinaltionSet, journeyDate);
+		if (flights == null || flights.isEmpty()) throw new InfyGoException("flight.not.found");
+		return flights.stream().map(flight -> this.modelMapper.map(flight, FlightDTO.class))
+				.collect(Collectors.toSet());
+	}
+	
+	@Override
+	public FlightDTO addFlight(FlightDTO flightDTO) throws InfyGoException {
+		Optional<Flight> flightOptional = this.flightRepository.findById(flightDTO.getFlightId());
+		if (flightOptional.isPresent()) throw new InfyGoException("flight.already.present");
+		Flight flight = this.modelMapper.map(flightDTO, Flight.class);
+		this.flightRepository.saveAndFlush(flight);
+		return this.modelMapper.map(flight, FlightDTO.class);
+	}
+	
+	@Override
+	public Set<FlightDTO> addFlights(List<FlightDTO> flightsDTO) throws InfyGoException {
+		Set<FlightDTO> flightDTOs = new HashSet<>();
+		flightsDTO.stream().forEach(flightdto -> {
+			Optional<Flight> flightOptional = this.flightRepository.findById(flightdto.getFlightId());
+			Flight flight = flightOptional
+					.orElse(this.flightRepository.saveAndFlush(this.modelMapper.map(flightdto, Flight.class)));
+			flightDTOs.add(this.modelMapper.map(flight, FlightDTO.class));
+		});
+		return flightDTOs;
+	}
+}
